@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Carousel</title>
+    <style>
+        .carousel {
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        .carousel img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .carousel img.active {
+            opacity: 1;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel" id="carousel">
+        <img src="https://images.unsplash.com/photo-1739477021967-e14dc3938e56?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8" class="active">
+        <img src="https://images.unsplash.com/photo-1737304697097-62a820f71964?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8">
+        <img src="https://images.unsplash.com/photo-1739467516221-e4008797edb4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyN3x8fGVufDB8fHx8fA%3D%3D">
+    </div>
+    <div class="controls">
+        <button onclick="prevSlide()">Previous</button>
+        <button onclick="nextSlide()">Next</button>
+    </div>
+    <script>
+        let index = 0;
+        let images = document.querySelectorAll(".carousel img");
+        let interval = setInterval(nextSlide, 3000);
+        let carousel = document.getElementById("carousel");
+        function showSlide(i) {
+            images.forEach(img => img.classList.remove("active"));
+            images[i].classList.add("active");
+        }
+        function nextSlide() {
+            index = (index + 1) % images.length;
+            showSlide(index);
+        }
+        function prevSlide() {
+            index = (index - 1 + images.length) % images.length;
+            showSlide(index);
+        }
+        carousel.addEventListener("mouseenter", () => clearInterval(interval));
+        carousel.addEventListener("mouseleave", () => interval = setInterval(nextSlide, 3000));
+    </script>
+</body>
+</html>

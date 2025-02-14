@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detect Key Pressed</title>
+    <style>
+        .output {
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Press a Key!</h2>
+    <p id="output" class="output">You pressed: </p>
+    <script>
+        document.addEventListener("keydown", function(event) {
+            let keyPressed = event.key;
+            document.getElementById("output").textContent = `You pressed: ${keyPressed}`;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter</title>
+    <style>
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 5px;
+        }
+        .highlight {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Word Counter</h2>
+    <textarea id="textArea" oninput="countWords()"></textarea>
+    <p>Word Count: <span id="wordCount">0</span></p>
+    <p>Repeated Words: <span id="repeatedWords"></span></p>
+
+    <script>
+        function countWords() {
+            let text = document.getElementById("textArea").value;
+            let words = text.match(/\b\w+\b/g) || [];
+            document.getElementById("wordCount").textContent = words.length;
+
+            let wordMap = {};
+            let repeated = [];
+            words.forEach(word => {
+                word = word.toLowerCase();
+                wordMap[word] = (wordMap[word] || 0) + 1;
+                if (wordMap[word] === 2) repeated.push(word);
+            });
+
+            document.getElementById("repeatedWords").textContent = repeated.join(", ") || "None";
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        #timerDisplay {
+            font-size: 30px;
+            margin: 20px 0;
+        }
+        input {
+            padding: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Countdown Timer</h2>
+    <input type="number" id="timeInput" placeholder="Enter time in seconds">
+    <button onclick="startTimer()">Start</button>
+    <div id="timerDisplay">0:00</div>
+    <audio id="endSound" src="https://pixabay.com/sound-effects/beep-125033/" preload="auto"></audio>
+
+    <script>
+        let countdown;
+        let timerDisplay = document.getElementById("timerDisplay");
+        let endSound = document.getElementById("endSound");
+
+        function startTimer() {
+            let seconds = parseInt(document.getElementById("timeInput").value);
+
+            if (isNaN(seconds) || seconds <= 0) {
+                alert("Please enter a valid time in seconds.");
+                return;
+            }
+
+            clearInterval(countdown);
+
+            function updateTimer() {
+                let mins = Math.floor(seconds / 60);
+                let secs = seconds % 60;
+                timerDisplay.textContent = `${mins}:${secs < 10 ? "0" + secs : secs}`;
+
+                if (seconds <= 0) {
+                    clearInterval(countdown);
+                    endSound.play();
+                    alert("Time's up!");
+                } else {
+                    seconds--;
+                }
+            }
+
+            countdown = setInterval(updateTimer, 1000);
+        }
+    </script>
+
+</body>
+</html>

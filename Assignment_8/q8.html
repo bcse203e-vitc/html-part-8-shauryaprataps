@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors Game</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Rock, Paper, Scissors</h2>
+    <div>
+        <button onclick="playGame('rock')">Rock</button>
+        <button onclick="playGame('paper')">Paper</button>
+        <button onclick="playGame('scissors')">Scissors</button>
+    </div>
+    <div class="result" id="result"></div>
+
+    <script>
+        function playGame(userChoice) {
+            let choices = ['rock', 'paper', 'scissors'];
+            let computerChoice = choices[Math.floor(Math.random() * 3)];
+            let resultMessage = '';
+
+            if (userChoice === computerChoice) {
+                resultMessage = `It's a draw! Both chose ${userChoice}.`;
+            } else if (
+                (userChoice === 'rock' && computerChoice === 'scissors') ||
+                (userChoice === 'paper' && computerChoice === 'rock') ||
+                (userChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                resultMessage = `You win! ${userChoice} beats ${computerChoice}.`;
+            } else {
+                resultMessage = `You lose! ${computerChoice} beats ${userChoice}.`;
+            }
+
+            document.getElementById("result").textContent = resultMessage;
+        }
+    </script>
+</body>
+</html>

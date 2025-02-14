@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Form Validation</title>
+    <style>
+        input {
+            display: block;
+            margin: 5px 0;
+            padding: 5px;
+            border: 2px solid #ccc;
+        }
+        .valid {
+            border-color: green;
+        }
+        .invalid {
+            border-color: red;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Sign Up</h2>
+    <label>Name:</label>
+    <input type="text" id="name" oninput="validateName()">
+    <div class="error" id="nameError"></div>
+    <label>Email:</label>
+    <input type="email" id="email" oninput="validateEmail()">
+    <div class="error" id="emailError"></div>
+    <label>Password:</label>
+    <input type="password" id="password" oninput="validatePassword()">
+    <div class="error" id="passwordError"></div>
+    <button id="submitBtn" disabled>Sign Up</button>
+
+    <script>
+        function validateName() {
+            let name = document.getElementById("name").value.trim();
+            let nameError = document.getElementById("nameError");
+            let input = document.getElementById("name");
+
+            if (name === "") {
+                nameError.textContent = "Name must not be empty.";
+                input.classList.add("invalid");
+                input.classList.remove("valid");
+            } else {
+                nameError.textContent = "";
+                input.classList.add("valid");
+                input.classList.remove("invalid");
+            }
+            checkForm();
+        }
+        function validateEmail() {
+            let email = document.getElementById("email").value.trim();
+            let emailError = document.getElementById("emailError");
+            let input = document.getElementById("email");
+            let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!regex.test(email)) {
+                emailError.textContent = "Enter a valid email.";
+                input.classList.add("invalid");
+                input.classList.remove("valid");
+            } else {
+                emailError.textContent = "";
+                input.classList.add("valid");
+                input.classList.remove("invalid");
+            }
+            checkForm();
+        }
+        function validatePassword() {
+            let password = document.getElementById("password").value.trim();
+            let passwordError = document.getElementById("passwordError");
+            let input = document.getElementById("password");
+            let regex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if (!regex.test(password)) {
+                passwordError.textContent = "At least 8 chars, 1 uppercase & 1 number.";
+                input.classList.add("invalid");
+                input.classList.remove("valid");
+            } else {
+                passwordError.textContent = "";
+                input.classList.add("valid");
+                input.classList.remove("invalid");
+            }
+            checkForm();
+        }
+        function checkForm() {
+            let isValid = document.querySelectorAll(".valid").length === 3;
+            document.getElementById("submitBtn").disabled = !isValid;
+        }
+    </script>
+</body>
+</html>
